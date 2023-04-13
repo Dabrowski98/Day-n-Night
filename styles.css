@@ -1,0 +1,525 @@
+:root {
+  --blue: #008ce4;
+  --white: #fff;
+  --moonShadow: #ffffff0e;
+  --moon: #fff;
+  --sun-1st: #ff0102;
+  --sun-2nd: #e26e3c;
+  --sun-3rd: #fff78a;
+  --sun-4th: #ebece4;
+  --sun-5th: #fff;
+
+  --shadow: 0px 0px 140px 70px #ffffff1e;
+  --cycleTime: 24s;
+  --startingNumber: 0s;
+}
+
+@font-face {
+  font-family: uni-sans-heavy;
+  src: url(./uni-sans.heavy-caps.otf);
+}
+
+@font-face {
+  font-family: uni-sans-thin;
+  src: url(./uni-sans.thin-caps.otf);
+}
+
+.animation-off {
+  animation: none;
+}
+
+.animation-paused {
+  animation-play-state: paused;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--orange);
+  z-index: 1;
+  mix-blend-mode: hard-light;
+  animation: skyColor var(--cycleTime) infinite linear;
+  animation-delay: var(--startingNumber);
+}
+
+.ui-container {
+  display: grid;
+  flex: 1;
+  width: 100vw;
+  height: 100vh;
+  padding: 3vh;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+/* USER INTERFACE CLOCK */
+
+.ui__clock-container {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+  font-size: 4rem;
+  font-family: uni-sans-thin;
+  opacity: 0.5;
+  animation: ui-color-black-to-white var(--cycleTime) infinite linear;
+  animation-delay: var(--startingNumber);
+}
+
+.ui__clock--date {
+  font-size: 2rem;
+}
+
+/* SLIDER */
+
+.ui__slider-container {
+  min-width: 300px;
+  height: 100%;
+  display: flex;
+  gap: 1rem;
+  background-color: transparent;
+  appearance: none;
+  display: flex;
+  flex-grow: 1;
+  z-index: 40;
+  opacity: 0.5;
+  transition: opacity 0.6s;
+}
+
+.ui__slider {
+  appearance: none;
+  width: 100%;
+  height: 2.6rem;
+  z-index: 40;
+  opacity: 0.5;
+  transition: opacity 0.6s;
+  background-color: transparent;
+  border: 2px solid #ffffffd5;
+  border-radius: 5px;
+  animation: ui-color-black-to-white var(--cycleTime) infinite linear,
+    border-color var(--cycleTime) infinite linear;
+  animation-delay: var(--startingNumber);
+  cursor: pointer;
+}
+
+#ui__slider--output {
+  display: none;
+}
+
+.ui__slider::-webkit-slider-thumb,
+.ui__slider::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 50px;
+  background-color: gray;
+  border: 2px solid #ffffffd5;
+  border-radius: 5px;
+  animation: ui-color-black-to-white var(--cycleTime) infinite linear,
+    border-color var(--cycleTime) infinite linear;
+  animation-delay: var(--startingNumber);
+  border-radius: 25%;
+  cursor: pointer;
+}
+
+/* SLIDER BUTTONS */
+
+.slider-button {
+  height: 2.6rem;
+  aspect-ratio: 1 / 1;
+  opacity: 0.5;
+  transition: 0.6s;
+  border-radius: 5px;
+  background-color: transparent;
+  animation: ui-color-black-to-white var(--cycleTime) infinite linear,
+    border-color var(--cycleTime) infinite linear;
+  animation-delay: var(--startingNumber);
+  border: 2px solid #ffffffd5;
+  cursor: pointer;
+}
+
+.ui__slider:hover,
+.slider-button:hover {
+  opacity: 1;
+}
+
+.ui__slider--reset-button > i {
+  position: relative;
+  transform: rotate(0deg);
+  transition: 600ms;
+}
+
+.ui__slider--reset-button > i:hover {
+  transform: rotate(180deg);
+}
+
+/* SKY */
+
+.bg__sky {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg__horizon {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 25%;
+  top: 65%;
+  z-index: 15;
+  height: 0.5%;
+  width: 70%;
+}
+
+.bg__sky--route {
+  top: 48%;
+  height: 51%;
+  width: 60%;
+  animation: cycle var(--cycleTime) infinite cubic-bezier(0.3, 0.01, 0.7, 1);
+  animation-delay: var(--startingNumber);
+}
+
+.bg__sky--sun {
+  position: absolute;
+  background-color: var(--moon);
+  top: calc(50% - 3vw);
+  right: calc(6vw + 80%);
+  height: 6vw;
+  width: 6vw;
+  z-index: 15;
+  border-radius: 50%;
+  animation: moonCounterRotation 7s linear infinite,
+    alternate daylight calc(var(--cycleTime) / 4) infinite linear;
+  animation-delay: var(--startingNumber);
+}
+
+.bg__sky--moon {
+  position: absolute;
+  height: 6vw;
+  width: 6vw;
+  right: 0;
+  top: calc(50% - 3vw);
+  filter: blur(0.05rem);
+  animation: moonDivRotation calc(var(--cycleTime) * 1000) linear infinite;
+  animation-delay: calc(var(--startingNumber) * 10);
+}
+
+.bg__sky--moon--face {
+  position: absolute;
+  height: 6vw;
+  width: 6vw;
+  border-radius: 50%;
+  animation: reverse moonCounterRotation var(--cycleTime) infinite
+      cubic-bezier(0.3, 0.01, 0.7, 1),
+    moonPhases calc(var(--cycleTime) * 10) infinite cubic-bezier(0, 1, 0, 1);
+  animation-delay: var(--startingNumber);
+}
+
+.bg__sky--moon--face::after {
+  background: var(--moonShadow);
+  animation: none;
+}
+
+/* FOREGROUND */
+
+/* .fg__mountains--mountain
+{
+    display: flex;
+    position: absolute;
+    background-color: black;
+    rotate: 30deg;
+    height: 800px;
+    width: 800px;
+    border-radius: 1% 0;
+    z-index: 25;
+    overflow: hidden;
+    background: linear-gradient(330deg, #2e2e2f 50%, rgb(97, 97, 97));
+}
+
+.fg__mountains--mountain:nth-child(1) {
+    top: 60vh;
+    right: 55vw;
+    transform: skewY(30deg);
+}
+
+.fg__grass {
+    position: absolute;
+    height: 500px;
+    width: 900px;
+    border-radius: 50%;
+    z-index: 20;
+    left: 28vw;
+    top: 58vh;
+    background-color: green;
+}
+.fg__mountains--mountain:nth-child(1)::before,
+.fg__mountains--mountain:nth-child(2)::before,
+.fg__mountains--mountain:nth-child(3)::before {
+    position: absolute;
+    background-color: #fff;
+    content: "";
+    top: 0vh;
+    right: 100vh;
+    height: 210px;
+    width: 180px;
+    rotate: 90deg;
+    transform: skew(40deg);
+}
+
+.fg__mountains--mountain--snow:nth-child(1) {
+    height: 80px;
+    width: 80px;
+}
+
+.fg__mountains--mountain:nth-child(2) {
+    height: 600px;
+    width: 600px;
+    top: 60vh;
+    right: 50vw;
+    z-index: 30;
+    rotate: 45deg;
+    transform: skewY(5deg);
+    background-color: gray;
+}
+
+.fg__mountains--mountain:nth-child(3) {
+    height: 800px;
+    width: 800px;
+    left: 60vw;
+    transform: skewY(40deg);
+    top: 80vh;
+    background-color: gray;
+} */
+
+@keyframes border-color {
+  5%,
+  46.5% {
+    border-color: #000000d5;
+  }
+
+  50%,
+  100%,
+  0% {
+    border-color: #ffffffd5;
+  }
+}
+
+@keyframes skyColor {
+  5%,
+  46.5% {
+    background-color: #6d2121;
+  }
+
+  7.5%,
+  42.5% {
+    background-color: #b6714f;
+  }
+
+  10%,
+  40% {
+    background-color: #e4c584;
+  }
+
+  20%,
+  30% {
+    background-color: #81b8ff;
+  }
+
+  0%,
+  50%,
+  52.5%,
+  97.5%,
+  100% {
+    background-color: #000000;
+  }
+  65%,
+  85% {
+    background-color: #000020;
+  }
+}
+
+@keyframes ui-color-black-to-white {
+  5%,
+  46.5% {
+    color: #000000d5;
+  }
+
+  50%,
+  100%,
+  0% {
+    color: #ffffffd5;
+  }
+}
+
+@keyframes ui-bg-color-black-to-white {
+  5%,
+  46.5% {
+    background: #000000;
+  }
+
+  50%,
+  100%,
+  0% {
+    background: #ffffff;
+  }
+}
+
+@keyframes daylight {
+  0%,
+  15% {
+    background-color: #ce0a0a;
+    box-shadow: 0 0 0.25vw 0.15vw #ff01017c, 0 0 0.5vw 0.15vw #ff01015b,
+      inset 0 0 2vh 2vh #ff010170;
+  }
+
+  30% {
+    background-color: #e26e3c;
+    box-shadow: 0 0 1.75vw 0.15vw #e77747bd, 0 0 0.5vw 0.15vw #c96438a1,
+      inset 0 0 1.75vw 1.5vw #e06936c9;
+  }
+
+  40% {
+    background-color: #fff78a;
+    box-shadow: 0 0 2.5vw 0.35vw #ffed68, 0 0 2vw 1.5vw #fee94e6b,
+      inset 0 0 2.5vw 2.25vw #fee84e;
+  }
+
+  60% {
+    background-color: #ffe677;
+    box-shadow: 0 0 5vw 0.35vw #fff293, 0 0 3.5vw 4vw #fff3956b,
+      inset 0px 0px 2.5vw 1.5vw #fff49e;
+  }
+  80%,
+  100% {
+    background-color: #fffbeb;
+    box-shadow: 0 0 5vw 3.5vw #ffffff, 0 0.25vw 6vw 7.5vw #ffffff6b,
+      inset 0px 0px 2.5vw 1.5vw #ffffff;
+  }
+}
+
+@keyframes cycle {
+  0% {
+    transform: rotate(0deg);
+    translate: 0px 0px;
+  }
+
+  25%,
+  75% {
+    translate: 0px 60px;
+  }
+
+  50% {
+    transform: rotate(180deg);
+    translate: 0px 0px;
+  }
+
+  100% {
+    transform: rotate(360deg);
+    translate: 0px 0px;
+  }
+}
+
+@keyframes moonCounterRotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes moonDivRotation {
+  from {
+    transform: rotate(-30deg);
+  }
+
+  to {
+    transform: rotate(-390deg);
+  }
+}
+
+@keyframes moonPhases {
+  /* new */
+  0% {
+    box-shadow: inset 0px 0px 0px -10px var(--moon), var(--shadow);
+  }
+
+  /* waning crescent */
+  5%,
+  10% {
+    box-shadow: inset 20px 0px 0px -5px var(--moon), var(--shadow);
+  }
+
+  /* third quarter */
+  15%,
+  20% {
+    box-shadow: inset 170px 0px 0px -120px var(--moon), var(--shadow);
+    background: transparent;
+  }
+
+  /* between phases */
+  25%,
+  30% {
+    box-shadow: inset -170px 0px 0px -120px gray, var(--shadow);
+    background: var(--moon);
+  }
+
+  /* waning gibbous */
+  35%,
+  40% {
+    box-shadow: inset -20px 0px 0px -5px gray, var(--shadow);
+  }
+
+  /* full */
+  45%,
+  50% {
+    box-shadow: inset 0px 0px 0px 0px gray, var(--shadow);
+  }
+
+  /* waxing gibbous */
+  55%,
+  60% {
+    box-shadow: inset 20px 0px 0px -5px gray, var(--shadow);
+  }
+
+  /* between phases */
+  65%,
+  70% {
+    box-shadow: inset 170px 0px 0px -120px gray, var(--shadow);
+    background: var(--moon);
+  }
+
+  /* first quarter */
+  75%,
+  80% {
+    box-shadow: inset -170px 0px 0px -120px var(--moon), var(--shadow);
+    background: transparent;
+  }
+
+  /* waxing crescent */
+  85%,
+  90% {
+    box-shadow: inset -20px 0px 0px -5px var(--moon), var(--shadow);
+  }
+
+  /* new */
+  95%,
+  100% {
+    box-shadow: inset 00px 0px 0px -5px var(--moon), var(--shadow);
+  }
+}

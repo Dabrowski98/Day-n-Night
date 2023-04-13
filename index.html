@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="mediaQueries.css" />
+    <link
+      href="https://fonts.cdnfonts.com/css/seven-segment"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Day'N'Night</title>
+  </head>
+  <body>
+    <!-- USER INTERFACE -->
+    <section class="ui-container">
+      <div class="ui__clock-container">
+        <div class="ui__clock--time"></div>
+        <div class="ui__clock--date">xd</div>
+      </div>
+      <div class="ui__slider-container">
+        <button class="slider-button ui__slider--reset-button">
+          <i class="fa-solid fa-arrows-rotate fa-2xl"></i>
+        </button>
+        <input
+          type="range"
+          min="0"
+          max="2400"
+          step="0.1"
+          value="0"
+          class="ui__slider"
+          id="cycleRange"
+        />
+        <div id="ui__slider--output"></div>
+        <button class="slider-button ui__slider--pause-button">
+          <i class="fa-sharp fa-solid fa-pause fa-2xl"></i>
+        </button>
+      </div>
+    </section>
+    <span class="bg__horizon"></span>
+    <!-- SKY -->
+    <div class="bg__sky bg__sky--route" id="bg__sky--route-id">
+      <div class="bg__sky--sun"></div>
+      <div class="bg__sky--moon">
+        <div class="bg__sky--moon--face"></div>
+      </div>
+    </div>
+    <!-- <div class="fg__mountains">
+        <div class="fg__mountains--mountain"></div>
+        <div class="fg__mountains--mountain"></div>
+        <div class="fg__mountains--mountain"></div>
+    </div>
+    <div class="fg__grass"></div> -->
+    <script src="./scripts.js"></script>
+  </body>
+</html>
